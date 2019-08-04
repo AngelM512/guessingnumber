@@ -7,39 +7,42 @@ using namespace std;
 
 int main(){
     srand(time(NULL)); // initialization 
-    int guess, secretNum;
+    int guess, secretNum, guessCounts;
     bool playAgain = true;
     string userChoice;
 
-    // secret num variable
+    // secret num variable + counts
+    guessCounts = 3;
     secretNum = (rand() % 10) + 1;
-    cout<<secretNum<<endl;
     
     do {
-        cout<<"Guess the number: ";
-        cin>>guess;
-        cout<<"\n";
-
+        cout << "TRIES:"<<guessCounts<<endl;
+        cout << "\nGuess the number: ";
+        cin >> guess;
+        cout << "\n";
         if (guess == secretNum){
-            cout<<"Cool you guessed the secret number: "<<secretNum<<endl;
-            cout<<"\nWould you like to play again (Y) or (N): ";
-            cin>>userChoice;
+            cout << "Cool you guessed the secret number: " << secretNum << endl;
+            cout << "\nWould you like to play again (Y) or (N): ";
+            cin >> userChoice;
             if(userChoice == "Y") {
                 playAgain = true;
                 secretNum = (rand() % 10) + 1;
+                guessCounts = 3;
                 system("clear");
-            } else {
+            } else if(userChoice == "N") {
                 playAgain = false;
                 system("clear");
-                cout<<"****THANKS FOR PLAYING*****"<<endl;
+                cout << "\t\t\t****THANKS FOR PLAYING*****" << endl;
             }
 
         } else if(secretNum != guess){
-
-            cout<<"not quiet try again, ";
+            guessCounts --;
+            cout << "Wrong number!" << endl;
         }
-    } while(playAgain == true);
+    } while(playAgain == true && guessCounts != 0);
 
+    //system("clear");
+    cout<<"\n\n\t\t\t\tGAMEOVER!\n\n\n";
 
     return 0;
 };
